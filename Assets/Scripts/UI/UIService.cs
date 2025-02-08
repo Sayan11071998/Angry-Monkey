@@ -38,6 +38,21 @@ namespace ServiceLocator.UI
         [SerializeField] private Button playAgainButton;
         [SerializeField] private Button quitButton;
 
+        public static UIService Instance { get { return instance; } }
+        private static UIService instance;
+
+        private void Awake()
+        {
+            if (instance == null)
+            {
+                instance = this;
+            }
+            else
+            {
+                Destroy(this.gameObject);
+                Debug.LogError("Singleton of UIService is Trying to create Second Instance");
+            }
+        }
 
         private void Start()
         {
@@ -52,7 +67,7 @@ namespace ServiceLocator.UI
             nextWaveButton.onClick.AddListener(OnNextWaveButton);
             quitButton.onClick.AddListener(OnQuitButtonClicked);
             playAgainButton.onClick.AddListener(OnPlayAgainButtonClicked);
-            
+
             SubscribeToEvents();
         }
 
