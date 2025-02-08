@@ -58,5 +58,6 @@
         "temp/": true,
         "Temp/": true
     },
-    "dotnet.defaultSolution": "Angry-Monkey.sln"
+    "dotnet.defaultSolution": "Angry-Monkey.sln",
+    "dotnet.preferCSharpExtension": true
 }
