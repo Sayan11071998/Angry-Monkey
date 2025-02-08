@@ -15,7 +15,6 @@ namespace ServiceLocator.Wave
         [SerializeField] private EventService eventService;
         [SerializeField] private UIService uiService;
         [SerializeField] private SoundService soundService;
-        // [SerializeField] private PlayerService playerService;
 
         [SerializeField] private WaveScriptableObject waveScriptableObject;
         private BloonPool bloonPool;
@@ -23,6 +22,22 @@ namespace ServiceLocator.Wave
         private int currentWaveId;
         private List<WaveData> waveDatas;
         private List<BloonController> activeBloons;
+
+        public static WaveService Instance { get { return instance; } }
+        private static WaveService instance;
+
+        private void Awake()
+        {
+            if (instance == null)
+            {
+                instance = this;
+            }
+            else
+            {
+                Destroy(this.gameObject);
+                Debug.LogError("Singleton of PWaveService is Trying to create Second Instance");
+            }
+        }
 
         private void Start()
         {
@@ -32,7 +47,7 @@ namespace ServiceLocator.Wave
 
         private void InitializeBloons()
         {
-            bloonPool = new BloonPool(this, soundService, waveScriptableObject);
+            bloonPool = new BloonPool(soundService, waveScriptableObject);
             activeBloons = new List<BloonController>();
         }
 
@@ -55,7 +70,7 @@ namespace ServiceLocator.Wave
 
         public async void SpawnBloons(List<BloonType> bloonsToSpawn, Vector3 spawnPosition, int startingWaypointIndex, float spawnRate)
         {
-            foreach(BloonType bloonType in bloonsToSpawn)
+            foreach (BloonType bloonType in bloonsToSpawn)
             {
                 BloonController bloon = bloonPool.GetBloon(bloonType);
                 bloon.SetPosition(spawnPosition);
@@ -81,7 +96,7 @@ namespace ServiceLocator.Wave
                 soundService.PlaySoundEffects(Sound.SoundType.WaveComplete);
                 uiService.UpdateWaveProgressUI(currentWaveId, waveDatas.Count);
 
-                if(IsLevelWon())
+                if (IsLevelWon())
                     uiService.UpdateGameEndUI(true);
                 else
                     uiService.SetNextWaveButton(true);
