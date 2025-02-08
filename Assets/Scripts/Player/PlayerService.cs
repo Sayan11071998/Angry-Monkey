@@ -8,20 +8,22 @@ using ServiceLocator.Sound;
 
 namespace ServiceLocator.Player
 {
-    public class PlayerService : GenericMonoSingleton<PlayerService>
+    public class PlayerService
     {
+
         [SerializeField] public PlayerScriptableObject playerScriptableObject;
-
+      
         private ProjectilePool projectilePool;
-
+        private PlayerScriptableObject playerScriptableObject;
         private List<MonkeyController> activeMonkeys;
         private MonkeyView selectedMonkeyView;
         private int health;
         private int money;
         public int Money => money;
 
-        private void Start()
+        public PlayerService(PlayerScriptableObject playerScriptableObject)
         {
+            this.playerScriptableObject = playerScriptableObject;
             projectilePool = new ProjectilePool(playerScriptableObject.ProjectilePrefab, playerScriptableObject.ProjectileScriptableObjects);
             InitializeVariables();
         }
@@ -37,7 +39,15 @@ namespace ServiceLocator.Player
 
         public void Update()
         {
-            if(Input.GetMouseButtonDown(0))
+            if (activeMonkeys.Count > 0)
+            {
+                foreach (MonkeyController controller in activeMonkeys)
+                {
+                    controller.UpdateMonkey();
+                }
+            }
+
+            if (Input.GetMouseButtonDown(0))
             {
                 UpdateSelectedMonkeyDisplay();
             }
@@ -48,9 +58,9 @@ namespace ServiceLocator.Player
             Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             RaycastHit2D[] hits = Physics2D.RaycastAll(mousePosition, Vector2.zero);
 
-            foreach(RaycastHit2D hit in hits)
+            foreach (RaycastHit2D hit in hits)
             {
-                if(IsMonkeyCollider(hit.collider))
+                if (IsMonkeyCollider(hit.collider))
                 {
                     selectedMonkeyView?.MakeRangeVisible(false);
                     selectedMonkeyView = hit.collider.GetComponent<MonkeyView>();
@@ -96,12 +106,12 @@ namespace ServiceLocator.Player
         }
 
         public void ReturnProjectileToPool(ProjectileController projectileToReturn) => projectilePool.ReturnItem(projectileToReturn);
-        
+
         public void TakeDamage(int damageToTake)
         {
             health = health - damageToTake <= 0 ? 0 : health - damageToTake;
             UIService.Instance.UpdateHealthUI(health);
-            if(health <= 0)
+            if (health <= 0)
             {
                 PlayerDeath();
             }
