@@ -17,14 +17,17 @@ namespace ServiceLocator.Player
 
         public MonkeyController(MonkeyScriptableObject monkeyScriptableObject, ProjectilePool projectilePool)
         {
+            this.monkeyScriptableObject = monkeyScriptableObject;
+            this.projectilePool = projectilePool;
+            CreateMonkeyView();
+            ResetAttackTimer();
+        }
+
+        private void CreateMonkeyView()
+        {
             monkeyView = Object.Instantiate(monkeyScriptableObject.Prefab);
             monkeyView.SetController(this);
             monkeyView.SetTriggerRadius(monkeyScriptableObject.Range);
-
-            this.monkeyScriptableObject = monkeyScriptableObject;
-            this.projectilePool = projectilePool;
-            bloonsInRange = new List<BloonController>();
-            ResetAttackTimer();
         }
 
         public void SetPosition(Vector3 positionToSet) => monkeyView.transform.position = positionToSet;
@@ -51,8 +54,6 @@ namespace ServiceLocator.Player
         }
 
         public bool CanAttackBloon(BloonType bloonType) => monkeyScriptableObject.AttackableBloons.Contains(bloonType);
-
-
 
         private void RotateTowardsTarget(BloonController targetBloon)
         {

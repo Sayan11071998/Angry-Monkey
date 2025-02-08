@@ -21,6 +21,7 @@ namespace ServiceLocator.UI
         public void MonkeyDraggedAt(Vector3 dragPosition)
         {
             GameService.Instance.playerService.ValidateSpawnPosition(monkeyCellSO.Cost, dragPosition);
+            PlayerService.Instance.ValidateSpawnPosition(monkeyCellSO.Cost, dragPosition);
         }
 
         public void MonkeyDroppedAt(Vector3 dropPosition)
