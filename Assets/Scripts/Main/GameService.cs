@@ -6,6 +6,7 @@ using ServiceLocator.Wave;
 using ServiceLocator.Sound;
 using ServiceLocator.Player;
 using ServiceLocator.UI;
+using System.Runtime.ConstrainedExecution;
 
 namespace ServiceLocator.Main
 {
@@ -34,12 +35,23 @@ namespace ServiceLocator.Main
 
         private void Start()
         {
+            createMethod();
+            InjectDependencies();
+        }
+
+        private void createMethod()
+        {
             EventService = new EventService();
             UIService.SubscribeToEvents();
             MapService = new MapService(mapScriptableObject);
             WaveService = new WaveService(waveScriptableObject);
             SoundService = new SoundService(soundScriptableObject, SFXSource, BGSource);
             PlayerService = new PlayerService(playerScriptableObject);
+        }
+
+        private void InjectDependencies()
+        {
+            PlayerService.Init(uiService, MapService, SoundService);
         }
 
         private void Update()
