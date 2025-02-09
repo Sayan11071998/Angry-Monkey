@@ -2,16 +2,16 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
-using ServiceLocator.Main;
 using UnityEngine.SceneManagement;
 using ServiceLocator.Wave;
-using ServiceLocator.Events;
 using ServiceLocator.Player;
+using ServiceLocator.Events;
 
 namespace ServiceLocator.UI
 {
     public class UIService : MonoBehaviour
     {
+        // Dependencies:
         private WaveService waveService;
         private EventService eventService;
 
@@ -40,7 +40,6 @@ namespace ServiceLocator.UI
         [SerializeField] private Button playAgainButton;
         [SerializeField] private Button quitButton;
 
-
         private void Start()
         {
             gameplayPanel.SetActive(false);
@@ -51,13 +50,13 @@ namespace ServiceLocator.UI
             playAgainButton.onClick.AddListener(OnPlayAgainButtonClicked);
         }
 
-        public void Init(WaveService waveService, EventService eventService, PlayerService playerService)
+        public void Init(WaveService waveService, PlayerService playerService, EventService eventService)
         {
             this.waveService = waveService;
             this.eventService = eventService;
 
-            InitializeMonkeySelectionUI(playerService);
             InitializeMapSelectionUI(eventService);
+            InitializeMonkeySelectionUI(playerService);
             SubscribeToEvents();
         }
 
@@ -72,12 +71,12 @@ namespace ServiceLocator.UI
 
         private void InitializeMonkeySelectionUI(PlayerService playerService)
         {
-            monkeySelectionController = new MonkeySelectionUIController(cellContainer, monkeyCellPrefab, monkeyCellScriptableObjects);
+            monkeySelectionController = new MonkeySelectionUIController(playerService, cellContainer, monkeyCellPrefab, monkeyCellScriptableObjects);
             MonkeySelectionPanel.SetActive(false);
             monkeySelectionController.SetActive(false);
         }
 
-        public void SubscribeToEvents() => eventService.OnMapSelected.AddListener(OnMapSelected);
+        private void SubscribeToEvents() => eventService.OnMapSelected.AddListener(OnMapSelected);
 
         public void OnMapSelected(int mapID)
         {

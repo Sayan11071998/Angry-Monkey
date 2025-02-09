@@ -1,39 +1,37 @@
 using System.Collections.Generic;
 using UnityEngine;
 using ServiceLocator.Player.Projectile;
-using ServiceLocator.Main;
-using ServiceLocator.UI;
 using ServiceLocator.Map;
+using ServiceLocator.UI;
 using ServiceLocator.Sound;
 
 namespace ServiceLocator.Player
 {
     public class PlayerService
     {
+        // Dependencies:
+        private MapService mapService;
+        private UIService uiService;
+        private SoundService soundService;
         private PlayerScriptableObject playerScriptableObject;
         private ProjectilePool projectilePool;
-        private UIService uIService;
-        private MapService mapService;
-        private SoundService soundService;
 
         private List<MonkeyController> activeMonkeys;
         private MonkeyView selectedMonkeyView;
         private int health;
         public int Money { get; private set; }
 
-
         public PlayerService(PlayerScriptableObject playerScriptableObject)
         {
             this.playerScriptableObject = playerScriptableObject;
-            projectilePool = new ProjectilePool(playerScriptableObject.ProjectilePrefab, playerScriptableObject.ProjectileScriptableObjects);
+            projectilePool = new ProjectilePool(this, playerScriptableObject.ProjectilePrefab, playerScriptableObject.ProjectileScriptableObjects);
         }
 
-        public void Init(UIService uIService, MapService mapService, SoundService soundService)
+        public void Init(MapService mapService, UIService uiService, SoundService soundService)
         {
-            this.uIService = uIService;
             this.mapService = mapService;
+            this.uiService = uiService;
             this.soundService = soundService;
-
             InitializeVariables();
         }
 
@@ -42,8 +40,8 @@ namespace ServiceLocator.Player
             activeMonkeys = new List<MonkeyController>();
             health = playerScriptableObject.Health;
             Money = playerScriptableObject.Money;
-            uIService.UpdateHealthUI(health);
-            uIService.UpdateMoneyUI(Money);
+            uiService.UpdateHealthUI(health);
+            uiService.UpdateMoneyUI(Money);
         }
 
         public void Update()
@@ -106,18 +104,17 @@ namespace ServiceLocator.Player
             if (mapService.TryGetMonkeySpawnPosition(dropPosition, out Vector3 spawnPosition))
             {
                 SpawnMonkey(monkeyType, spawnPosition);
-                soundService.PlaySoundEffects(Sound.SoundType.SpawnMonkey);
+                soundService.PlaySoundEffects(SoundType.SpawnMonkey);
             }
         }
 
         public void SpawnMonkey(MonkeyType monkeyType, Vector3 spawnPosition)
         {
             MonkeyScriptableObject monkeyScriptableObject = GetMonkeyScriptableObjectByType(monkeyType);
-            MonkeyController monkey = new MonkeyController(monkeyScriptableObject, projectilePool);
-
+            MonkeyController monkey = new MonkeyController(soundService, monkeyScriptableObject, projectilePool);
+            
             monkey.SetPosition(spawnPosition);
             activeMonkeys.Add(monkey);
-
             DeductMoney(monkeyScriptableObject.Cost);
         }
 
@@ -129,8 +126,8 @@ namespace ServiceLocator.Player
         {
             int reducedHealth = health - damageToTake;
             health = reducedHealth <= 0 ? 0 : health - damageToTake;
-
-            uIService.UpdateHealthUI(health);
+            
+            uiService.UpdateHealthUI(health);
             if(health <= 0)
                 PlayerDeath();
         }
@@ -138,15 +135,15 @@ namespace ServiceLocator.Player
         private void DeductMoney(int moneyToDedecut)
         {
             Money -= moneyToDedecut;
-            uIService.UpdateMoneyUI(Money);
+            uiService.UpdateMoneyUI(Money);
         }
 
         public void GetReward(int reward)
         {
             Money += reward;
-            uIService.UpdateMoneyUI(Money);
+            uiService?.UpdateMoneyUI(Money);
         }
 
-        private void PlayerDeath() => uIService.UpdateGameEndUI(false);
+        private void PlayerDeath() => uiService.UpdateGameEndUI(false);
     }
 }

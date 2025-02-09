@@ -9,9 +9,9 @@ namespace ServiceLocator.Map
 {
     public class MapService
     {
-        private MapScriptableObject mapScriptableObject;
-
+        // Dependencies:
         private EventService eventService;
+        private MapScriptableObject mapScriptableObject;
 
         private Grid currentGrid;
         private Tilemap currentTileMap;
@@ -48,7 +48,7 @@ namespace ServiceLocator.Map
 
         private void SetTileOverlayColor(TileOverlayColor colorToSet)
         {
-            switch (colorToSet)
+            switch(colorToSet)
             {
                 case TileOverlayColor.TRANSPARENT:
                     tileOverlay.color = mapScriptableObject.DefaultTileColor;
@@ -68,7 +68,7 @@ namespace ServiceLocator.Map
             Vector3Int cellPosition = GetCellPosition(mousePosition);
             Vector3 cellCenter = GetCenterOfCell(cellPosition);
 
-            if (CanSpawnOnPosition(cellCenter, cellPosition))
+            if(CanSpawnOnPosition(cellCenter, cellPosition))
             {
                 tileOverlay.transform.position = cellCenter;
                 SetTileOverlayColor(TileOverlayColor.SPAWNABLE);
@@ -84,13 +84,13 @@ namespace ServiceLocator.Map
         {
             Vector3 mousePosition = Camera.main.ScreenToWorldPoint(cursorPosition);
             Vector3Int cellPosition = GetCellPosition(mousePosition);
-            Vector3 centerCell = GetCenterOfCell(cellPosition);
+            Vector3 cellCenter = GetCenterOfCell(cellPosition);
 
             ResetTileOverlay();
 
-            if (CanSpawnOnPosition(centerCell, cellPosition))
+            if (CanSpawnOnPosition(cellCenter, cellPosition))
             {
-                spawnPosition = centerCell;
+                spawnPosition = cellCenter;
                 return true;
             }
             else
@@ -131,9 +131,7 @@ namespace ServiceLocator.Map
             foreach (Collider2D collider in colliders)
             {
                 if (collider.gameObject.GetComponent<MonkeyView>() != null && !collider.isTrigger)
-                {
                     return true;
-                }
             }
             return false;
         }
