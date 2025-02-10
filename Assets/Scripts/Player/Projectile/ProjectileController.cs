@@ -1,6 +1,5 @@
 using UnityEngine;
 using ServiceLocator.Wave.Bloon;
-using ServiceLocator.Main;
 
 namespace ServiceLocator.Player.Projectile
 {

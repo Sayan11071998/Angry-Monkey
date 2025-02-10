@@ -18,7 +18,6 @@ namespace ServiceLocator.Main
         private PlayerService playerService;
         [SerializeField] private UIService uiService;
 
-
         // Scriptable Objects:
         [SerializeField] private MapScriptableObject mapScriptableObject;
         [SerializeField] private WaveScriptableObject waveScriptableObject;

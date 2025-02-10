@@ -1,5 +1,4 @@
 using ServiceLocator.Player;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -23,6 +22,5 @@ namespace ServiceLocator.UI
         }
 
         public void SetActive(bool setActive) => cellContainer.gameObject.SetActive(setActive);
-
     }
 }
