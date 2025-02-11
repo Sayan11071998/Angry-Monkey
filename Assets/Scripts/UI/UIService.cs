@@ -65,6 +65,12 @@ namespace ServiceLocator.UI
             levelSelectionPanel.SetActive(true);
             foreach (MapButton mapButton in mapButtons)
             {
+                if (mapButton == null)
+                {
+                    Debug.LogError("A MapButton in the mapButtons list is null!");
+                    continue;
+                }
+
                 mapButton.Init(eventService);
             }
         }
