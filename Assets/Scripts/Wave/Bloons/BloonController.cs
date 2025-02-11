@@ -20,6 +20,7 @@ namespace ServiceLocator.Wave.Bloon
         private int currentHealth;
         private int currentWaypointIndex;
         private BloonState currentState;
+        
 
         public Vector3 Position => bloonView.transform.position;
 
