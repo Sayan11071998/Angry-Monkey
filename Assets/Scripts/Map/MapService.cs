@@ -47,7 +47,7 @@ namespace ServiceLocator.Map
 
         private void SetTileOverlayColor(TileOverlayColor colorToSet)
         {
-            switch(colorToSet)
+            switch (colorToSet)
             {
                 case TileOverlayColor.TRANSPARENT:
                     tileOverlay.color = mapScriptableObject.DefaultTileColor;
@@ -67,7 +67,7 @@ namespace ServiceLocator.Map
             Vector3Int cellPosition = GetCellPosition(mousePosition);
             Vector3 cellCenter = GetCenterOfCell(cellPosition);
 
-            if(CanSpawnOnPosition(cellCenter, cellPosition))
+            if (CanSpawnOnPosition(cellCenter, cellPosition))
             {
                 tileOverlay.transform.position = cellCenter;
                 SetTileOverlayColor(TileOverlayColor.SPAWNABLE);
@@ -134,6 +134,12 @@ namespace ServiceLocator.Map
             }
             return false;
         }
+
+        public int GetCurrentMapID()
+        {
+            return currentMapData.MapID;
+        }
+
 
         private enum TileOverlayColor
         {

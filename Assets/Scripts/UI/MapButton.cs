@@ -12,9 +12,21 @@ namespace ServiceLocator.UI
         public void Init(EventService eventService)
         {
             this.eventService = eventService;
-            GetComponent<Button>().onClick.AddListener(OnMapButtonClicked);
+            int unlockedMapID = PlayerPrefs.GetInt("UnlockedMapID", 1);
+
+            Button button = GetComponent<Button>();
+            bool isUnlocked = MapId <= unlockedMapID;
+
+            button.interactable = isUnlocked;
+
+            if (!isUnlocked)
+            {
+                GetComponentInChildren<Text>().text += " (Locked)";
+            }
+
+            button.onClick.AddListener(OnMapButtonClicked);
         }
 
-        private void OnMapButtonClicked() =>  eventService.OnMapSelected.InvokeEvent(MapId);
+        private void OnMapButtonClicked() => eventService.OnMapSelected.InvokeEvent(MapId);
     }
 }

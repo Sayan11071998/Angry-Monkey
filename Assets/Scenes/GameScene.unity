@@ -906,6 +906,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 675717801}
     - target: {fileID: 7182248005041137930, guid: 15430d56842a28843b57fd250730f142, type: 3}
+      propertyPath: mapButtons.Array.data[2]
+      value: 
+      objectReference: {fileID: 675717801}
+    - target: {fileID: 7182248005041137930, guid: 15430d56842a28843b57fd250730f142, type: 3}
       propertyPath: monkeyCellScriptableObjects.Array.size
       value: 3
       objectReference: {fileID: 0}
