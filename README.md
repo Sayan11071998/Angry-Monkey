@@ -69,6 +69,7 @@ I’d love to hear your feedback, thoughts, or stories about your first game or 
 ---
 
 ## Play Link
+https://sayannandi.itch.io/angry-monkey
 
 [![Watch the video](https://img.youtube.com/vi/Nc567BDU10g/maxresdefault.jpg)](https://youtu.be/Nc567BDU10g)
 ### [Gameplay Video](https://youtu.be/Nc567BDU10g)
