@@ -1,31 +1,77 @@
-# ***🚀 Project Milestone: Angry Monkey! 🎮🐵***
+# Angry Monkey
 
-🌟 Introducing my latest project – Angry Monkey!
-A 2D puzzle-arcade game packed with creative mechanics, strategic gameplay, and modern design twists! 🧩🎯
+**Angry Monkey** is a 2D puzzle-arcade tower defense game developed in Unity, featuring strategic defense mechanics, unique enemy types, and a dynamic progression system. Inspired by classic tower defense gameplay, the project brings in-depth systems design and modern Unity architecture into a fun and challenging experience.
 
-## **🎨 ✨ Highlights of Mr. Block:**🔹 Game Highlights:**
-- ***✨ 🏹 Strategic Monkey Placement:*** Place different types of defense monkeys strategically to stop the balloons from escaping!
-- ***✨ 🐵 Unique Monkey Types:*** Deploy Ninja Monkey, Sniper Monkey, and Sharp Monkey – each with special abilities.
-- ***✨ 🎈 Diverse Enemy Balloons:*** Face Red, Blue, Metal, Camo, and Boss Balloons, each with different health and damage values.
-- ***✨ 💥 Balloon Splitting Mechanic:*** Popping one balloon may spawn multiple smaller ones!
-- ***✨ 🛤️ Predefined Paths:*** Balloons follow specific routes, making strategy essential.
-- ***✨ ❤️ Health System:*** If balloons escape, you lose health!
-- ***✨ 💰 Coin System:*** Earn coins by popping balloons and use them to deploy more monkeys.
-- ***✨ 🔊 Engaging Audio:*** Added multiple sounds for a more immersive experience.
-- ***✨ 🔓 Level Unlocking System:*** Complete a level to unlock the next one!
+---
 
-💡 Key Learnings:
-- ***🚀 📜 Scriptable Objects:*** Used for monkeys, balloons, and maps.
-- ***🚀 🔄 Singleton & Generic Mono Singleton:*** Initially implemented and later discarded due to disadvantages.
-- ***🚀 🎯 Service Locator:*** Transitioned to a Service Locator pattern, making service classes non-Monobehaviours.
-- ***🚀 🛠️ Dependency Injection:*** Eliminated service references in GameService, injecting dependencies dynamically.
-- ***🚀 🔁 INIT Method:*** Created an INIT method in service classes to manage dependencies.
-- ***🚀 🗃️ Player Prefs & Level Unlocking:*** Used PlayerPrefs for saving level progress.
-- ***🚀 💪 Unity & C# Mastery:*** Enhanced scripting skills, custom mechanics, and game optimization techniques.
-- ***🚀 🏆 Performance Optimization Challenge:*** Encountered lag issues when too many game objects were on screen – currently optimizing!
+## 🔹 Game Highlights
 
-💬 Let’s Connect!
-Are you into game development, C++ programming, or algorithm discussions? I’d love to chat! Drop your thoughts, feedback, or share your first algorithm story. 🚀🌟
+- **Strategic Monkey Placement**  
+  Players must tactically place different types of monkeys to stop balloons from escaping predefined paths.
+
+- **Unique Monkey Types**  
+  Includes Sniper Monkey, Ninja Monkey, and Sharp Monkey — each with distinct abilities and behaviors.
+
+- **Diverse Enemy Balloons**  
+  Red, Blue, Metal, Camo, and Boss Balloons offer varying health values, damage potentials, and mechanics.
+
+- **Balloon Splitting Mechanic**  
+  Certain balloons spawn smaller ones upon being popped, increasing the challenge over time.
+
+- **Path-Following System**  
+  Balloons follow specific predefined routes, requiring thoughtful positioning of monkeys.
+
+- **Health and Coin Systems**  
+  Players lose health when balloons escape and earn coins by popping them, which are used to deploy more units.
+
+- **Audio and Feedback Systems**  
+  Integrated sound effects for popping, damage, and events to enhance player immersion.
+
+- **Level Unlocking System**  
+  Completing a level unlocks the next, with progress saved using PlayerPrefs.
+
+---
+
+## 💡 Key Learnings & Architecture
+
+- **Scriptable Objects**  
+  Utilized extensively for defining balloon types, monkey data, and level maps, improving scalability and modularity.
+
+- **Service Locator Pattern**  
+  Transitioned from Singleton and Generic MonoSingleton patterns to Service Locator for better dependency management and testability.
+
+- **Dependency Injection & Initialization**  
+  Developed a clean initialization method (`INIT()`) across service classes to handle dynamic dependency resolution without tightly coupling logic.
+
+- **PlayerPrefs Integration**  
+  Saved level unlocking and game progress efficiently using Unity's built-in PlayerPrefs system.
+
+- **Performance Optimization**  
+  Identified and began addressing performance bottlenecks due to object overload and rendering. Work in progress to introduce pooling and optimization techniques.
+
+---
+
+## 🧠 Development Focus Areas
+
+- Advanced use of Unity architecture and game systems
+- Clean and maintainable C# scripting
+- Balancing strategy, challenge, and replayability
+- Modular game components and reusable logic
+- Improving runtime performance with profiling and optimization
+
+---
+
+## 📬 Let’s Connect
+
+Into Unity game development, C++ programming, or gameplay architecture?  
+I’d love to hear your feedback, thoughts, or stories about your first game or algorithm implementation. Let’s chat!
+
+---
+
+## Play Link
+
+[![Watch the video](https://img.youtube.com/vi/Nc567BDU10g/maxresdefault.jpg)](https://youtu.be/Nc567BDU10g)
+### [Gameplay Video](https://youtu.be/Nc567BDU10g)
 
 ![Image](https://github.com/user-attachments/assets/21b8e9ae-836e-4302-a439-bf775694dc41)
 
